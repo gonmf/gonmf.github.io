@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (min-width: 576px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 576px) {
+  .container {
+    width: 540px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+    max-width: 100%;
+  }
+}
+.header {
+  background-color: #A74AC9;
+  padding: 32px;
+  padding-bottom: 60px;
+  border-bottom: 4px solid #19E9E0;
+  font-size: large;
+  font-family: Fredoka One, sans-serif;
+  color: white;
+}
+h1, h2, h3, h4, h5 {
+  font-family: Fredoka One, sans-serif;
+}
+.logo {
+  float: left;
+}
+nav {
+  position: relative;
+  float: right;
+  right: 0;
+  width: auto;
+  top: 0px;
+}
+nav ul li {
+  background: transparent none repeat scroll 0 0;
+  margin-top: 10px;
+  margin-left: 40px;
+  position: relative;
+  list-style: none;
+  float: left;
+  display: block;
+}
+.header a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+.header a:hover {
+  color: #FDCD05;
+}
+.main-container, .footer {
+  font-family: Roboto, sans-serif;
+  font-size: large;
+  line-height: 1.5;
+}
+.main-container {
+  margin: 60px 0;
+  min-height: 60%;
+}
+.footer {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: small;
+  color: gray;
+}
+p {
+  margin: 16px 0;
+}
+.text-img-left {
+  float: left;
+  margin: 20px;
+  margin-left: 0;
+}
+.text-img-right {
+  float: right;
+  margin: 20px;
+  margin-right: 0;
+}
+.main-container h1 {
+  font-size: 24px;
+  color: #222;
+}
+.main-container a {
+  font-weight: bold;
+  font-size: 95%;
+  transition: color 0.3s;
+  text-decoration: none;
+  color: #111;
+}
+.main-container a:hover {
+  color: #FDCD05;
+}
+.main-container h2 {
+  font-size: 18px;
+  color: #443695;
+}
+u {
+  text-decoration-thickness: 3px;
+}

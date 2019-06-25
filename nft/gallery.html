@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style type="text/css">
+    a {
+      color: white;
+    }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      div.gallery {
+        margin: 10px;
+        border: 2px solid #ccc;
+        float: left;
+        width: calc(33% - 22px);
+      }
+      div.gallery:hover {
+        border: 2px solid #19E9E0;
+        opacity: 0.9;
+      }
+      div.gallery img {
+        width: 100%;
+        height: auto;
+      }
+      div.desc {
+        padding: 15px;
+        text-align: center;
+      }
+      .gallery-container {
+        display: block;
+      }
+      .clearfix:before,
+      .clearfix:after {
+          content: "";
+          display: table;
+      }
+
+      .clearfix:after {
+          clear: both;
+      }
+      b {
+        color: #A74AC9;
+        font-size: 21px;
+      }
+      .desc {
+        font-size: 16px;
+      }
+      a.tag.off {
+        color: #999;
+        font-size: 24px;
+      }
+      a.tag.off:hover {
+        color: #333;
+      }
+      a.tag.on {
+        color: #FDCD05;
+        font-size: 26px;
+      }
+      a.tag.on:hover {
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="logo"><h2><a href="/">unnamed NFT website</a></h2></div>
+
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="how_it_works.html">How it works</a></li>
+            <li><u>Gallery</u></li>
+            <li><a href="token.html">Token</a></li>
+            <li><a href="wallet.html">Wallet</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="container">
+        <h1>Gallery</h1>
+        <h2>Click on an artwork to expand</h2>
+
+        <p><b>Tags:</b> <a class="tag off" href="javascript:void(0);">Green</a>, <a class="tag off" href="javascript:void(0);">World</a>, <a class="tag off" href="javascript:void(0);">Bitcoin</a>, <a class="tag on" href="javascript:void(0);">Selected</a>, <a class="tag off" href="javascript:void(0);">Nature</a>, <a class="tag off" href="javascript:void(0);">Music</a>, <a class="tag off" href="javascript:void(0);">Dark</a>, <a class="tag off" href="javascript:void(0);">Gold</a></p>
+
+        <br/>
+
+        <div class="gallery-container clearfix">
+          <div class="gallery">
+            <a target="_blank" href="artwork.html?id=000001">
+              <img src="img/400x600.png">
+            </a>
+            <div class="desc"><b>Artwork name</b><br/>Some description</div>
+          </div>
+
+          <div class="gallery">
+            <a target="_blank" href="artwork.html?id=000002">
+              <img src="img/400x600.png">
+            </a>
+            <div class="desc"><b>Artwork name</b><br/>Some description</div>
+          </div>
+
+          <div class="gallery">
+            <a target="_blank" href="artwork.html?id=000003">
+              <img src="img/400x600.png">
+            </a>
+            <div class="desc"><b>Artwork name</b><br/>Some description</div>
+          </div>
+
+          <div class="gallery">
+            <a target="_blank" href="artwork.html?id=000004">
+              <img src="img/400x600.png">
+            </a>
+            <div class="desc"><b>Artwork name</b><br/>Some description</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <img src="img/separator.png" style="height: 32px" /><br/><br/><br/><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      </div>
+    </div>
+  </body>
+</html>
