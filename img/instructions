@@ -1,0 +1,9 @@
+1. First remove EXIF tags:
+
+exiftool -EXIF= *
+
+2. Then fix messed up orientations manually
+
+3. Finally create thumbnail
+
+convert original/filename.jpg -resize "360^>" -gravity center -crop 360x360+0+0 -strip thumb/filename.jpg

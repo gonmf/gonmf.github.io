@@ -1,0 +1,117 @@
+::-moz-selection {
+  color: #000;
+  background: #FF0;
+}
+::selection {
+  color: #000;
+  background: #FF0;
+}
+a::selection {
+  text-decoration: underline !important;
+}
+a::-moz-selection {
+  text-decoration: underline !important;
+}
+body {
+  color: #000;
+  background-color: #FFF;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.gallery a img {
+  width: 18vw;
+  height: 18vw;
+  min-width: 260px;
+  min-height: 260px;
+  max-width: 360px;
+  max-height: 360px;
+  object-fit: cover;
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  body {
+    font-size: 16px;
+  }
+  .container {
+    max-width: 70vw !important;
+  }
+  .gallery a img {
+    width: 23vw;
+    height: 23vw;
+  }
+}
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 18px;
+  }
+  .container {
+    max-width: 56vw !important;
+  }
+  .gallery a img {
+    width: 18vw;
+    height: 18vw;
+  }
+}
+.container {
+  max-width: 80vw;
+  margin: auto;
+  padding-top: 10vh;
+  padding-bottom: 35vh;
+}
+h1 {
+  font-weight: normal;
+}
+h2 {
+  margin-top: 8vh;
+}
+h3 {
+  margin-top: 6vh;
+}
+a {
+  background-color: #FFF;
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+p, li {
+  line-height: 2;
+}
+dt {
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  line-height: 2;
+}
+a.back {
+  margin-bottom: 5vh;
+  display: inline-block;
+}
+.terminal {
+  background-color: #000;
+  color: #EEE;
+  padding: 1rem;
+  font-size: large
+}
+.terminal span {
+  color: #0f0;
+}
+@media print {
+  a {
+    color: #000;
+  }
+  a:not(.no-print)::after {
+    content: " " attr(href);
+  }
+  a.back, a[name] {
+    display: none;
+  }
+  .terminal {
+    background-color: #FFF;
+    color: #000;
+    border: 1px solid #000;
+  }
+  .terminal span {
+    color: #FFF;
+  }
+}
