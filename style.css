@@ -1,6 +1,6 @@
 body {
-  color: black;
-  background-color: #FCF8F1;
+  color: #000;
+  background-color: #FFF;
   font-family: sans-serif;
   font-size: 14px;
 }
@@ -36,7 +36,7 @@ h3 {
   margin-top: 6vh;
 }
 a {
-  background-color: #FCF8F1;
+  background-color: #FFF;
   color: blue;
   text-decoration: none;
 }
@@ -57,7 +57,7 @@ a.back {
   display: inline-block;
 }
 .terminal {
-  background-color: black;
+  background-color: #000;
   color: #EEE;
   padding: 1rem;
   font-size: large
@@ -78,6 +78,7 @@ a.back {
   .terminal {
     background-color: #FFF;
     color: #000;
+    border: 1px solid #000;
   }
   .terminal span {
     color: #FFF;
