@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Gonçalo Mendes Ferreira">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()"/>
+
+    <title>Início</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script type="text/javascript">
+      var waqiToken = "8c0ea1b1101c95227e69e10b46aa94ce34dfd3b9"
+      var openWeatherMapOrgToken = "ae5a8d27e0a0fa7706c82ad172c03cac"
+
+      var locations = [
+        {
+          name: 'Lisboa',
+          lat: 38.752,
+          lon: -9.180
+        },
+        {
+          name: 'Caparica',
+          lat: 38.649,
+          lon: -9.235
+        }
+      ]
+
+      var mostCommon = function(values) {
+        var counter = {}
+        var max = 0
+        values.forEach(v => {
+          counter[v] = (counter[v] || 0) + 1
+          max = Math.max(counter[v], max)
+        })
+
+        var best = ''
+
+        Object.keys(counter).forEach(key => {
+          if (counter[key] === max) {
+            best = key
+          }
+        })
+
+        return best
+      }
+
+      var upcaseFirstLetter = function(word) {
+        return `${word[0].toUpperCase()}${word.substring(1)}`
+      }
+
+      var formatDate = function(date) {
+        var str = new Date(date).toLocaleDateString('pt-pt', { weekday:"short", month:"long", day: "numeric"})
+
+        var parts = str.split(' ')
+        parts[0] = upcaseFirstLetter(parts[0])
+        parts[parts.length - 1] = upcaseFirstLetter(parts[parts.length - 1])
+        return parts.join(' ')
+      }
+
+      var decode = function(str) {
+        return `${str.substring(str.length / 2)}${str.substring(0, str.length / 2)}`
+      }
+
+      var loadWeatherData = function(result) {
+        var location = this
+
+        var groupedDaily = {}
+        for (var item of result['list']) {
+          var key = item['dt_txt'].split(' ')[0]
+          if (groupedDaily[key]) {
+            groupedDaily[key]['temp_min'] = Math.min(Math.round(parseFloat(item['main']['temp_min'])), groupedDaily[key]['temp_min'])
+            groupedDaily[key]['temp_max'] = Math.max(Math.round(parseFloat(item['main']['temp_max'])), groupedDaily[key]['temp_max'])
+            groupedDaily[key]['pop'] = Math.max(Math.round(parseFloat(item['pop'])), groupedDaily[key]['pop'])
+            item['weather'].forEach(w => groupedDaily[key]['weather'].push(w['icon']))
+          } else {
+            groupedDaily[key] = {
+              temp_min: Math.round(parseFloat(item['main']['temp_min'])),
+              temp_max: Math.round(parseFloat(item['main']['temp_max'])),
+              pop: Math.round(parseFloat(item['pop'])),
+              weather: item['weather'].map(w => w['icon'])
+            }
+          }
+        }
+
+        var header = document.getElementById(`t1header${location}`)
+        var body = document.getElementById(`t1body${location}`)
+        var rain = document.getElementById(`t1rain${location}`)
+        var rainProb = document.getElementById(`t1rainProb${location}`)
+        header.innerHTML = ''
+        body.innerHTML = ''
+        rain.innerHTML = ''
+        rainProb.innerHTML = ''
+
+        var dates = Object.keys(groupedDaily).sort()
+        for (var dateStr of dates) {
+          var item = groupedDaily[dateStr]
+
+          var newElem = document.createElement("th")
+          newElem.scope = 'col'
+          newElem.innerText = formatDate(dateStr)
+          header.appendChild(newElem)
+
+          newElem = document.createElement("td")
+          newElem.innerText = `${Math.round(parseFloat(item['temp_min']))} - ${Math.round(parseFloat(item['temp_max']))}º`
+          body.appendChild(newElem)
+
+          newElem = document.createElement("td")
+          var img = document.createElement("img")
+          img.src = `https://openweathermap.org/img/wn/${mostCommon(item['weather'])}@2x.png`
+          img.alt = 'alt'
+          newElem.appendChild(img)
+          rain.appendChild(newElem)
+
+          newElem = document.createElement("td")
+          if (item['pop'] == 0) {
+            newElem.innerText = ''
+          } else {
+            newElem.innerText = `${Math.round(item['pop'] * 100)}% prob. chuva`
+          }
+          rainProb.appendChild(newElem)
+        }
+
+        header = document.getElementById(`t2header${location}`)
+        body = document.getElementById(`t2body${location}`)
+        rain = document.getElementById(`t2rain${location}`)
+        rainProb = document.getElementById(`t2rainProb${location}`)
+        header.innerHTML = ''
+        body.innerHTML = ''
+        rain.innerHTML = ''
+        rainProb.innerHTML = ''
+
+        for (var item of result['list']) {
+          var newElem = document.createElement("th")
+          newElem.scope = 'col'
+          var date = new Date(item['dt'] * 1000)
+          newElem.innerText = new Date().toDateString() === date.toDateString() ? date.toLocaleString('pt-pt', { hour: 'numeric', minute: 'numeric'}) : `Dia ${date.toLocaleString('pt-pt', { day: 'numeric', hour: 'numeric', minute: 'numeric'})}`
+          header.appendChild(newElem)
+
+          newElem = document.createElement("td")
+          newElem.innerText = `${Math.round(parseFloat(item['main']['temp_min']))} - ${Math.round(parseFloat(item['main']['temp_max']))}º`
+          body.appendChild(newElem)
+
+          newElem = document.createElement("td")
+          var img = document.createElement("img")
+          img.src = `https://openweathermap.org/img/wn/${item['weather'][0]['icon']}@2x.png`
+          img.alt = 'alt'
+          newElem.appendChild(img)
+          rain.appendChild(newElem)
+
+          newElem = document.createElement("td")
+          if (item['pop'] == 0) {
+            newElem.innerText = ''
+          } else {
+            newElem.innerText = `${Math.round(item['pop'] * 100)}% prob. chuva`
+          }
+          rainProb.appendChild(newElem)
+        }
+      }
+
+      var loadAirQualityData = function(result) {
+        var location = this
+
+        var dailyAirQuality = {}
+
+        var list = (result['data']['forecast']['daily']['o3'] || [])
+        list.forEach(val => {
+          dailyAirQuality[val['day']] ||= {}
+          dailyAirQuality[val['day']]['o3'] = val['avg']
+        })
+        list = (result['data']['forecast']['daily']['pm10'] || [])
+        list.forEach(val => {
+          dailyAirQuality[val['day']] ||= {}
+          dailyAirQuality[val['day']]['pm10'] = val['avg']
+        })
+        list = (result['data']['forecast']['daily']['pm25'] || [])
+        list.forEach(val => {
+          dailyAirQuality[val['day']] ||= {}
+          dailyAirQuality[val['day']]['pm25'] = val['avg']
+        })
+
+        var airQuality = document.getElementById(`t1airQuality${location}`)
+        airQuality.innerHTML = ''
+        var dates = Object.keys(dailyAirQuality).sort()
+        var idx = 0
+        for (var dateStr of dates) {
+          var item = dailyAirQuality[dateStr]
+
+          var newElem = document.createElement("td")
+          var isHigh = [item['o3'], item['pm10'], item['pm25']].some(v => v && v >= 50)
+          var text = [item['o3'], item['pm10'], item['pm25']].map(s => s ? `${s}` : '?').join('&nbsp;&nbsp;|&nbsp;&nbsp;')
+          newElem.innerHTML = isHigh ? `<b style="color: red">${text}</b>` : text
+          if (idx === 0) {
+            newElem.innerHTML += `<br/><small>O3 | PM10 | PM25</small>`
+          }
+          idx++
+          airQuality.appendChild(newElem)
+        }
+      }
+
+      var loadedFunc = function() {
+        var body = locations.map(location => {
+          var name = location['name']
+
+          return `<h2>Tempo ${name}</h2><table class="table"><thead><tr id="t1header${name}"></tr></thead><tbody><tr id="t1body${name}"></tr><tr id="t1rain${name}"></tr><tr id="t1rainProb${name}"></tr><tr id="t1airQuality${name}"></tr></tbody></table><br/><h3>Próximas horas</h3><div style="overflow-x: auto"><table class="table table-striped"><thead><tr id="t2header${name}"></tr></thead><tbody><tr id="t2body${name}"></tr><tr id="t2rain${name}"></tr><tr id="t2rainProb${name}"></tr></tbody></table></div>`
+        }).join('<br/><br/><br/>')
+        document.getElementById('main-container').innerHTML = `<br/>${body}<br/>`
+
+        locations.forEach(location => {
+          var name = location['name']
+          var lat = location['lat']
+          var lon = location['lon']
+          var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${decode(openWeatherMapOrgToken)}`
+
+          fetch(url).then(data => {
+            return data.json()
+          }).then(result => {
+            if (result['cod'] !== '200') {
+              return
+            }
+
+            loadWeatherData.bind(name)(result)
+          })
+
+          url = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${decode(waqiToken)}`
+
+          fetch(url).then(data => {
+            return data.json()
+          }).then(result => {
+            if (result['status'] !== 'ok') {
+              return
+            }
+
+            loadAirQualityData.bind(name)(result)
+          })
+        })
+      }
+    </script>
+    <style>
+      .table th,td {
+         text-align: center;
+      }
+    </style>
+  </head>
+
+  <body onload="loadedFunc()">
+    <div class="container">
+      <main id="main-container">
+      </main>
+    </div>
+  </body>
+</html>
