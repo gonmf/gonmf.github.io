@@ -88,12 +88,12 @@
           tableCell = document.createElement('td')
           var description = item1.weather[0].description
           tableCell.innerHTML = [description, item1['pop'] > 0 ? `, ${Math.round(item1['pop'] * 100)}% prob.` : ''].join('')
-          tableCell.style = 'text-align: left; padding-right: 20px;'
+          tableCell.style = 'font-size: small; text-align: left; padding-right: 10px;'
           if (Math.round(item1['pop'] * 100) >= 70) {
-            tableCell.style = 'text-align: left; padding-right: 20px; color: red;'
+            tableCell.style = 'font-size: small; text-align: left; padding-right: 10px; color: red;'
           }
           if (description === 'moderate rain') {
-            tableCell.style = 'text-align: left; padding-right: 20px; color: red; font-weight: bold;'
+            tableCell.style = 'font-size: small; text-align: left; padding-right: 10px; color: red; font-weight: bold;'
           }
           tableRow.appendChild(tableCell)
 
@@ -127,12 +127,12 @@
           tableCell = document.createElement('td')
           var description = item2.weather[0].description
           tableCell.innerHTML = [description, item2['pop'] > 0 ? `, ${Math.round(item2['pop'] * 100)}% prob.` : ''].join('')
-          tableCell.style = 'text-align: right; padding-left: 20px;'
+          tableCell.style = 'font-size: small; text-align: right; padding-left: 10px;'
           if (Math.round(item2['pop'] * 100) >= 70) {
-            tableCell.style = 'text-align: right; padding-left: 20px; color: red;'
+            tableCell.style = 'font-size: small; text-align: right; padding-left: 10px; color: red;'
           }
           if (description === 'moderate rain') {
-            tableCell.style = 'text-align: right; padding-left: 20px; color: red; font-weight: bold;'
+            tableCell.style = 'font-size: small; text-align: right; padding-left: 10px; color: red; font-weight: bold;'
           }
           tableRow.appendChild(tableCell)
 
@@ -179,7 +179,7 @@
 
   <body onload="loadedFunc()">
     <div class="container">
-      <main><center style="margin: 100px 0">
+      <main><center style="margin: 20px 0">
         <table id="weatherTable"></table>
       </center></main>
     </div>
