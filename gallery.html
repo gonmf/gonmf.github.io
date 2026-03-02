@@ -110,9 +110,18 @@
         cursor: pointer;
       }
     </style>
+    <style id="no-js-toggle">#theme-toggle-wrapper { display: none; }</style>
+    <script src="theme.js"></script>
   </head>
 
   <body>
+    <div id="theme-toggle-wrapper">
+      <button id="theme-toggle" aria-pressed="false" aria-label="Dark mode">
+        <span class="icon-sun"  aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☽</span>
+      </button>
+    </div>
+
     <div class="container">
       <nav>
         <a class="back" href="index.html">← Back</a>
