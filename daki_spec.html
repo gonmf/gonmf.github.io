@@ -267,7 +267,7 @@
     > month('February').
     > month('March').
     > month(name)!
-    month = 'January'
+    name = 'January'
         </pre>
 
         <p>Queries have a time limit to be completed. If a query times out the interpreter prints the message "<code>Search timeout</code>". A full query can timeout even after finding at least part of the solution. The default time limit is interpreter or system specific.</p>
@@ -574,7 +574,7 @@
           <dd>Unifies with the concatenation of the string inputs</dd>
 
           <dt>slice(String1, Integer2, Integer3, Output).</dt>
-          <dd>Unifies with the remainder of a string String1 starting at index Integer2 and ending at index Integer3, or the end of the string</dd>
+          <dd>Unifies with the section of a string String1 starting at index Integer2 and ending before index Integer3, or at the end of the string; the character at index Integer3 is not included</dd>
 
           <dt>index(String1, String2, Integer3, Output).</dt>
           <dd>Unifies with the integer position of String2 if found in String1, or integer literal <code>-1</code>; searching starting from Integer3</dd>
@@ -617,7 +617,7 @@
           <dd>Unifies with the concatenation of the list inputs into one</dd>
 
           <dt>slice(List1, Integer2, Integer3, Output).</dt>
-          <dd>Unifies with the remainder of list List1 starting at index Integer2 and ending at index Integer3, or the end of the list</dd>
+          <dd>Unifies with the section of list List1 starting at index Integer2 and ending before index Integer3, or at the end of the list; the element at index Integer3 is not included</dd>
 
           <dt>index(List1, Input2, Integer3, Output).</dt>
           <dd>Unifies with the integer position of Input2 if found in List1, or integer literal <code>-1</code>; the search starts from index Integer3</dd>
@@ -660,7 +660,7 @@
           <dd>Unifies with a random floating point value between 0 and 1</dd>
 
           <dt>type(Input, Output).</dt>
-          <dd>Unifies with the string literal of the name of the data type of Input: <code>'string'</code>, <code>'integer'</code> or <code>'float'</code></dd>
+          <dd>Unifies with the string literal of the name of the data type of Input: <code>'string'</code>, <code>'integer'</code>, <code>'float'</code> or <code>'list'</code></dd>
 
           <dt>print(Input, Output).</dt>
           <dd>Print Input to the console; unifies with the string literal <code>'Yes'</code></dd>
@@ -719,6 +719,9 @@
 
           <dt>>=</dt>
           <dd>Tests if the variable is greater or equal to the literal; not available for <code>list</code> types</dd>
+
+          <dt>=</dt>
+          <dd>Tests if the variable is equal to the literal</dd>
 
           <dt><></dt>
           <dd>Tests if the variable is not equal to the literal</dd>
@@ -803,7 +806,7 @@
                                     sub(EndTime, StartTime, Elapsed).
     >
     > time_fib1(10, Val, Elapsed)?
-    Val = 144
+    Val = 55
     Elapsed = 161
 
     > # Using a clause condition
@@ -815,7 +818,7 @@
                                     sub(EndTime, StartTime, Elapsed).
     >
     > time_fib2(10, Val, Elapsed)?
-    Val = 144
+    Val = 55
     Elapsed = 99
         </pre>
 
@@ -877,7 +880,7 @@
           <dd>Bitwise complement</dd>
         </dl>
 
-        <p>Notice the bitwise complement operator is the only one with a single operand. It is used as, for example, "<code>~123</code>", so you will need to surround it with parenthesis if in the middle of a longer expression.</p>
+        <p>Notice the bitwise complement operator is the only one with a single operand. It is used as, for example, "<code>~123</code>", and may appear anywhere a value is expected, including in the middle of a longer expression.</p>
 
         <p>In practice, inline operations are expanded into using the <code>eval</code> operator clause with an intermediate variable for the output. You can see this seamless expansion by using the command <code>listing</code>.</p>
 
@@ -887,7 +890,7 @@
     Sum = 13
 
     > listing
-    0: sum_of_powers(X, Y, Res) :- eval(X, Y, '($0*$0)+($1*$1)', $1), set($1, Res).
+    0: sum_of_powers(X, Y, Res) :- eval(X, Y, '($0*$0)+($1*$1)', $0), set($0, Res).
         </pre>
 
         <p>Inline operations, the <code>eval</code> operator clause and in fact the entire parsing algorithm uses <i>deterministic finite-state machines</i> for the evaluation. Because of this the operators do not have an intrinsic operator priority, they are evaluated sequentially. You must use parenthesis to enforce an evaluation order.</p>
@@ -933,7 +936,7 @@
 
         <pre>
     > fib2(X, 1)?
-    X = 1
+    X = 2
         </pre>
 
         <p>Memoization is always relative to a global clauses table. Changing to another table will use another memoization tree. Adding or retracting individual clauses does not affect what clauses are memoized, nor is the process memory cleared, use the built-in commands <code>rem_memo</code> and <code>clear_memo</code> for that.</p>
